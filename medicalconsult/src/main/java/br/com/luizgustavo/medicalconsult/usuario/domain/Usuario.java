@@ -1,5 +1,6 @@
 package br.com.luizgustavo.medicalconsult.usuario.domain;
 
+import br.com.luizgustavo.medicalconsult.usuario.Enum.Permissao;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,7 +23,7 @@ public class Usuario {
     private String telefone;
     @Column(name = "DATA_NASCIMENTO")
     private Date dataNascimento;
-  //  private Permissao permissao;
+    private Permissao permissao;
 
 
     public Usuario() {
