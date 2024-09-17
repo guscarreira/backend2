@@ -1,10 +1,13 @@
 package br.com.luizgustavo.medicalconsult.usuario.domain;
 
+import br.com.luizgustavo.medicalconsult.consulta.domain.Consulta;
 import br.com.luizgustavo.medicalconsult.usuario.Enum.Permissao;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
 @Entity
 @Table (name = "USUARIOS")
@@ -22,6 +25,11 @@ public class Usuario {
     @Column(name = "TELEFONE")
     private String telefone;
     @Column(name = "DATA_NASCIMENTO")
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Consulta> consultas;
+
+
     private Date dataNascimento;
     private Permissao permissao;
 
