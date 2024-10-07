@@ -26,8 +26,7 @@ public class Usuario {
     private String telefone;
     @Column(name = "DATA_NASCIMENTO")
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Consulta> consultas;
+
 
 
     private Date dataNascimento;

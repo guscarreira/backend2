@@ -1,0 +1,332 @@
+openapi: 3.0.1
+info:
+  title: Gerenciamento de Consultas
+  version: v1.0
+  description: API para gerenciar usuários e consultas médicas.
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor de desenvolvimento
+
+paths:
+  /usuarios/{id}:
+    get:
+      tags:
+        - usuario-resource
+      summary: "Buscar usuário pelo ID"
+      description: "Esse endpoint busca um usuário específico no sistema usando o ID fornecido."
+      operationId: buscarUsuario
+      parameters:
+        - name: id
+          in: path
+          description: "ID do usuário que você deseja buscar."
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "Usuário encontrado com sucesso."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+              example:
+                idUsuario: 1
+                nomeUsuario: "João Silva"
+                email: "joao.silva@example.com"
+                cpf: "123.456.789-00"
+                telefone: "83 99999-9999"
+                dataNascimento: "1990-05-15"
+        "404":
+          description: "Usuário não encontrado."
+        "400":
+          description: "Requisição inválida. O ID fornecido pode estar incorreto ou mal formatado."
+    put:
+      tags:
+        - usuario-resource
+      summary: "Atualizar um usuário"
+      description: "Esse endpoint permite atualizar as informações de um usuário específico no sistema, com base no ID fornecido."
+      operationId: atualizarUsuario
+      parameters:
+        - name: id
+          in: path
+          description: "ID do usuário que você deseja atualizar."
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: "Dados do usuário a serem atualizados. Forneça as informações completas para o usuário."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+            example:
+              nomeUsuario: "Maria Oliveira"
+              email: "maria.oliveira@example.com"
+              cpf: "987.654.321-00"
+              telefone: "83 88888-8888"
+              dataNascimento: "1988-03-22"
+      responses:
+        "200":
+          description: "Usuário atualizado com sucesso."
+        "400":
+          description: "Dados fornecidos inválidos. Verifique os campos obrigatórios."
+        "404":
+          description: "Usuário não encontrado."
+    delete:
+      tags:
+        - usuario-resource
+      summary: "Deletar um usuário"
+      description: "Esse endpoint permite a remoção de um usuário específico do sistema."
+      operationId: deletarUsuario
+      parameters:
+        - name: id
+          in: path
+          description: "ID do usuário que você deseja deletar."
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "Usuário deletado com sucesso."
+        "404":
+          description: "Usuário não encontrado."
+
+  /usuarios:
+    get:
+      tags:
+        - usuario-resource
+      summary: "Listar todos os usuários"
+      description: "Esse endpoint retorna a lista completa de usuários cadastrados no sistema."
+      operationId: listarUsuarios
+      responses:
+        "200":
+          description: "Lista de usuários retornada com sucesso."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Usuario"
+              example:
+                - idUsuario: 1
+                  nomeUsuario: "João Silva"
+                  email: "joao.silva@example.com"
+                  cpf: "123.456.789-00"
+                  telefone: "83 99999-9999"
+                  dataNascimento: "1990-05-15"
+                - idUsuario: 2
+                  nomeUsuario: "Maria Oliveira"
+                  email: "maria.oliveira@example.com"
+                  cpf: "987.654.321-00"
+                  telefone: "83 88888-8888"
+                  dataNascimento: "1988-03-22"
+    post:
+      tags:
+        - usuario-resource
+      summary: "Cadastrar um novo usuário"
+      description: "Esse endpoint permite o cadastro de um novo usuário no sistema."
+      operationId: cadastrarUsuario
+      requestBody:
+        description: "Dados do usuário a ser cadastrado."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+            example:
+              nomeUsuario: "Ana Souza"
+              email: "ana.souza@example.com"
+              cpf: "999.888.777-66"
+              telefone: "83 77777-7777"
+              dataNascimento: "1995-12-10"
+      responses:
+        "201":
+          description: "Usuário cadastrado com sucesso."
+        "400":
+          description: "Dados inválidos fornecidos. Verifique os campos obrigatórios."
+
+  /consultas/{id}:
+    get:
+      tags:
+        - consulta-resource
+      summary: "Buscar consulta pelo ID"
+      description: "Esse endpoint busca uma consulta específica no sistema usando o ID fornecido."
+      operationId: buscarConsulta
+      parameters:
+        - name: id
+          in: path
+          description: "ID da consulta que você deseja buscar."
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "Consulta encontrada com sucesso."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Consulta"
+              example:
+                idConsulta: 101
+                dataConsulta: "2024-10-07"
+                profissional: "Dra. Ana Souza"
+                especialidade: "Cardiologia"
+                usuario:
+                  idUsuario: 1
+                  nomeUsuario: "João Silva"
+        "404":
+          description: "Consulta não encontrada."
+        "400":
+          description: "Requisição inválida. O ID fornecido pode estar incorreto ou mal formatado."
+    put:
+      tags:
+        - consulta-resource
+      summary: "Atualizar uma consulta"
+      description: "Esse endpoint permite atualizar as informações de uma consulta específica no sistema, com base no ID fornecido."
+      operationId: atualizarConsulta
+      parameters:
+        - name: id
+          in: path
+          description: "ID da consulta que você deseja atualizar."
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: "Dados da consulta para atualização. Forneça as informações completas para a consulta."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Consulta"
+            example:
+              dataConsulta: "2024-10-08"
+              profissional: "Dr. Marcos Oliveira"
+              especialidade: "Dermatologia"
+              usuario:
+                idUsuario: 2
+                nomeUsuario: "Maria Souza"
+      responses:
+        "200":
+          description: "Consulta atualizada com sucesso."
+        "400":
+          description: "Dados fornecidos inválidos. Verifique os campos obrigatórios."
+        "404":
+          description: "Consulta não encontrada."
+    delete:
+      tags:
+        - consulta-resource
+      summary: "Deletar uma consulta"
+      description: "Esse endpoint permite a remoção de uma consulta específica do sistema."
+      operationId: deletarConsulta
+      parameters:
+        - name: id
+          in: path
+          description: "ID da consulta que você deseja deletar."
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "Consulta deletada com sucesso."
+        "404":
+          description: "Consulta não encontrada."
+
+  /consultas:
+    get:
+      tags:
+        - consulta-resource
+      summary: "Listar todas as consultas"
+      description: "Esse endpoint retorna a lista completa de consultas cadastradas no sistema."
+      operationId: listarConsultas
+      responses:
+        "200":
+          description: "Lista de consultas retornada com sucesso."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Consulta"
+              example:
+                - idConsulta: 101
+                  dataConsulta: "2024-10-07"
+                  profissional: "Dra. Ana Souza"
+                  especialidade: "Cardiologia"
+                  usuario:
+                    idUsuario: 1
+                    nomeUsuario: "João Silva"
+                - idConsulta: 102
+                  dataConsulta: "2024-10-08"
+                  profissional: "Dr. Marcos Oliveira"
+                  especialidade: "Dermatologia"
+                  usuario:
+                    idUsuario: 2
+                    nomeUsuario: "Maria Souza"
+    post:
+      tags:
+        - consulta-resource
+      summary: "Cadastrar uma nova consulta"
+      description: "Esse endpoint permite o cadastro de uma nova consulta no sistema."
+      operationId: cadastrarConsulta
+      requestBody:
+        description: "Dados da consulta a ser cadastrada."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Consulta"
+            example:
+              dataConsulta: "2024-10-07"
+              profissional: "Dra. Ana Souza"
+              especialidade: "Cardiologia"
+              usuario:
+                idUsuario: 1
+                nomeUsuario: "João Silva"
+      responses:
+        "201":
+          description: "Consulta cadastrada com sucesso."
+        "400":
+          description: "Dados inválidos fornecidos. Verifique os campos obrigatórios."
+
+components:
+  schemas:
+    Usuario:
+      type: object
+      properties:
+        idUsuario:
+          type: integer
+          format: int64
+        nomeUsuario:
+          type: string
+        email:
+          type: string
+        cpf:
+          type: string
+        telefone:
+          type: string
+        dataNascimento:
+          type: string
+          format: date
+    Consulta:
+      type: object
+      properties:
+        idConsulta:
+          type: integer
+          format: int64
+        dataConsulta:
+          type: string
+          format: date
+        profissional:
+          type: string
+        especialidade:
+          type: string
+        usuario:
+          $ref: "#/components/schemas/Usuario"
