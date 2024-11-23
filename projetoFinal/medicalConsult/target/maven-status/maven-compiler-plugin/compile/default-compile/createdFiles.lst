@@ -1,0 +1,14 @@
+br\com\diegom\medicalconsult\usuario\domain\Usuario.class
+br\com\diegom\medicalconsult\usuario\repositories\UsuarioRepository.class
+br\com\diegom\medicalconsult\config\JacksonConfig.class
+br\com\diegom\medicalconsult\usuario\domain\Permissao.class
+br\com\diegom\medicalconsult\config\SecurityConfig.class
+br\com\diegom\medicalconsult\usuario\services\UsuarioService.class
+br\com\diegom\medicalconsult\consulta\repository\ConsultaRepository.class
+br\com\diegom\medicalconsult\usuario\resources\UsuarioResource.class
+br\com\diegom\medicalconsult\consulta\service\ConsultaService.class
+br\com\diegom\medicalconsult\MedicalconsultApplication.class
+br\com\diegom\medicalconsult\consulta\domain\Consulta.class
+br\com\diegom\medicalconsult\consulta\resources\ConsultaResource.class
+br\com\diegom\medicalconsult\config\SwaggerConfig.class
+br\com\diegom\medicalconsult\exception\ExceptionDataIntegrityViolation.class

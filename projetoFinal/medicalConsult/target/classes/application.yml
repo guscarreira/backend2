@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  jpa:
+    open-in-view: false # Remove o aviso do log
+java:
+  runtime:
+    version: '17'
+springdoc:
+  api-docs:
+    path: /medicalConsult
